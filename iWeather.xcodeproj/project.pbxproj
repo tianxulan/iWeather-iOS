@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4621B9BA2744E19300D13B1C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4621B9B92744E19200D13B1C /* README.md */; };
+		4621B9BC2744E6B700D13B1C /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 4621B9BB2744E6B700D13B1C /* Podfile */; };
 		467788EA2744DE0C009A1239 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467788E92744DE0C009A1239 /* AppDelegate.swift */; };
 		467788EC2744DE0C009A1239 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467788EB2744DE0C009A1239 /* SceneDelegate.swift */; };
 		467788EE2744DE0C009A1239 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467788ED2744DE0C009A1239 /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		4621B9B92744E19200D13B1C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../../../../../xiu/My Drive/Education/USC/CSCI 571/Homeworks/HW9/iWeather/README.md"; sourceTree = "<group>"; };
+		4621B9BB2744E6B700D13B1C /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Podfile; path = "../../../../../../../../xiu/My Drive/Education/USC/CSCI 571/Homeworks/HW9/iWeather/Podfile"; sourceTree = "<group>"; };
 		467788E62744DE0C009A1239 /* iWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		467788E92744DE0C009A1239 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		467788EB2744DE0C009A1239 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +44,7 @@
 		467788DD2744DE0C009A1239 = {
 			isa = PBXGroup;
 			children = (
+				4621B9BB2744E6B700D13B1C /* Podfile */,
 				4621B9B92744E19200D13B1C /* README.md */,
 				467788E82744DE0C009A1239 /* iWeather */,
 				467788E72744DE0C009A1239 /* Products */,
@@ -128,6 +131,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4621B9BC2744E6B700D13B1C /* Podfile in Resources */,
 				467788F62744DE0E009A1239 /* LaunchScreen.storyboard in Resources */,
 				467788F32744DE0E009A1239 /* Assets.xcassets in Resources */,
 				4621B9BA2744E19300D13B1C /* README.md in Resources */,

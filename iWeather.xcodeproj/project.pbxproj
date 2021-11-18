@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4621B9BA2744E19300D13B1C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4621B9B92744E19200D13B1C /* README.md */; };
 		4621B9BC2744E6B700D13B1C /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 4621B9BB2744E6B700D13B1C /* Podfile */; };
+		466AB74B27461F740085F699 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = 466AB73F27461F740085F699 /* Contents.json */; };
 		467788EA2744DE0C009A1239 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467788E92744DE0C009A1239 /* AppDelegate.swift */; };
 		467788EC2744DE0C009A1239 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467788EB2744DE0C009A1239 /* SceneDelegate.swift */; };
 		467788EE2744DE0C009A1239 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467788ED2744DE0C009A1239 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		4621B9B92744E19200D13B1C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../../../../../xiu/My Drive/Education/USC/CSCI 571/Homeworks/HW9/iWeather/README.md"; sourceTree = "<group>"; };
 		4621B9BB2744E6B700D13B1C /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Podfile; path = "../../../../../../../../xiu/My Drive/Education/USC/CSCI 571/Homeworks/HW9/iWeather/Podfile"; sourceTree = "<group>"; };
+		466AB73F27461F740085F699 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		467788E62744DE0C009A1239 /* iWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		467788E92744DE0C009A1239 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		467788EB2744DE0C009A1239 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				467788ED2744DE0C009A1239 /* ViewController.swift */,
 				467788EF2744DE0C009A1239 /* Main.storyboard */,
 				467788F22744DE0E009A1239 /* Assets.xcassets */,
+				466AB73F27461F740085F699 /* Contents.json */,
 				467788F42744DE0E009A1239 /* LaunchScreen.storyboard */,
 				467788F72744DE0E009A1239 /* Info.plist */,
 			);
@@ -136,6 +139,7 @@
 				467788F32744DE0E009A1239 /* Assets.xcassets in Resources */,
 				4621B9BA2744E19300D13B1C /* README.md in Resources */,
 				467788F12744DE0C009A1239 /* Main.storyboard in Resources */,
+				466AB74B27461F740085F699 /* Contents.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

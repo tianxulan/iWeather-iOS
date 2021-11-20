@@ -9,9 +9,12 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet weak var twitterButton: UIButton!
+    @IBOutlet weak var navigation: UINavigationBar!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let image = UIImage(named: "twitter.svg")?.withRenderingMode(.alwaysOriginal)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: image,style: .done, target: self, action: #selector(DetailViewController.twitterOnPressed(_:)))
         // Do any additional setup after loading the view.
     }
     
@@ -25,5 +28,13 @@ class DetailViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func twitterOnPressed(_ sender: UIButton) {
+        print("twitter button Pressed")
+        
+    }
+    
 
+    
+    
 }

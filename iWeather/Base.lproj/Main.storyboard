@@ -190,7 +190,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="emm-Tq-DuS"/>
+                    <navigationItem key="navigationItem" id="emm-Tq-DuS">
+                        <barButtonItem key="backBarButtonItem" title="Weather" id="SG3-2P-Uzb"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="firstSubView" destination="iV8-II-Fvx" id="ZVl-E0-apg"/>
                         <outlet property="fsCity" destination="nvn-PE-abT" id="Cut-wO-L6K"/>
@@ -223,14 +225,18 @@
                                 <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Title" id="Wzr-Wx-yYm"/>
+                                    <navigationItem title="City" id="Wzr-Wx-yYm">
+                                        <barButtonItem key="backBarButtonItem" title="Weather" id="Uhr-6h-IJ1"/>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5R1-1i-5Ci"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="OO7-6T-DCu"/>
+                    <connections>
+                        <outlet property="navigation" destination="fOA-Zq-f8v" id="z0c-qL-AGc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YTp-S5-a8U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -56,7 +56,7 @@
                                         <buttonConfiguration key="configuration" style="plain"/>
                                         <connections>
                                             <action selector="firstSubViewOnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fjh-eo-Mil"/>
-                                            <segue destination="24q-m7-Tai" kind="show" id="h5r-NP-WAg"/>
+                                            <segue destination="oK8-ek-AEf" kind="show" id="RNk-I5-Kas"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -204,43 +204,39 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="283.07692307692309" y="-822.51184834123217"/>
+            <point key="canvasLocation" x="282" y="-1612"/>
         </scene>
         <!--Detail View Controller-->
-        <scene sceneID="dA9-x8-NyH">
+        <scene sceneID="Rz7-I3-Lbt">
             <objects>
-                <viewController interfaceStyle="light" id="24q-m7-Tai" customClass="DetailViewController" customModule="iWeather" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="cks-Rq-ccO">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Detail Page" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apd-xS-2wu">
-                                <rect key="frame" x="140" y="412" width="111" height="21"/>
+                <tabBarController id="oK8-ek-AEf" customClass="DetailViewController" customModule="iWeather" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Uc7-zI-lPe">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="Freezing Rain" style="plain" id="3Zk-aj-y4U">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="R5J-Cf-AEM">
+                                <rect key="frame" x="288" y="3" width="86" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fOA-Zq-f8v">
-                                <rect key="frame" x="0.0" y="44" width="390" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="City" id="Wzr-Wx-yYm">
-                                        <barButtonItem key="backBarButtonItem" title="Weather" id="Uhr-6h-IJ1"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="5R1-1i-5Ci"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="twitter"/>
+                                <connections>
+                                    <action selector="twitterOnPressed:" destination="oK8-ek-AEf" eventType="touchUpInside" id="sMv-BF-FUZ"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UIg-an-DMb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
                     <connections>
-                        <outlet property="navigation" destination="fOA-Zq-f8v" id="z0c-qL-AGc"/>
+                        <segue destination="ZiS-7q-bwg" kind="relationship" relationship="viewControllers" id="FDS-Ik-iye"/>
+                        <segue destination="WR0-gb-5yU" kind="relationship" relationship="viewControllers" id="oWV-MK-iig"/>
+                        <segue destination="yPK-Bg-lxS" kind="relationship" relationship="viewControllers" id="ytK-oH-iS9"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YTp-S5-a8U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uju-LJ-Vbz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1003.0769230769231" y="-822.51184834123217"/>
+            <point key="canvasLocation" x="282" y="-817"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="crX-NQ-CTY">
@@ -258,16 +254,96 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hM6-I8-XBx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-646.15384615384608" y="-822.51184834123217"/>
+            <point key="canvasLocation" x="282" y="-2306"/>
+        </scene>
+        <!--TODAY-->
+        <scene sceneID="4IG-jh-dHH">
+            <objects>
+                <viewController id="ZiS-7q-bwg" customClass="DayViewController" customModule="iWeather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Rdb-Jw-PSJ">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPI-dE-d1C">
+                                <rect key="frame" x="180" y="412" width="30" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="nKY-eU-1VJ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="TODAY" image="Today_Tab" id="O1D-2Y-9Zp"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wj9-sc-RV3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1255.3846153846152" y="-21.327014218009477"/>
+        </scene>
+        <!--WEEKLY-->
+        <scene sceneID="v0d-8P-Tfw">
+            <objects>
+                <viewController id="WR0-gb-5yU" customClass="WeeklyViewController" customModule="iWeather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="H36-hb-PzY">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Weekly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2p0-8M-bGM">
+                                <rect key="frame" x="165" y="412" width="61" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="tTk-Ov-S9w"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="WEEKLY" image="Weekly_Tab" id="AOL-YU-ntz"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="net-5T-V24" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="281.53846153846155" y="-21.327014218009477"/>
+        </scene>
+        <!--WEATHER DATA-->
+        <scene sceneID="3r1-WY-61h">
+            <objects>
+                <viewController id="yPK-Bg-lxS" customClass="WeatherDataViewController" customModule="iWeather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="k1i-1e-eKX">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Weather Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4e-oo-69E">
+                                <rect key="frame" x="143" y="412" width="104" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="noO-ar-XcX"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="WEATHER DATA" image="Weather_Data_Tab" id="33a-Yj-WeT"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JBg-dk-jYK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1671" y="-21"/>
         </scene>
     </scenes>
     <resources>
         <image name="App_background" width="1080" height="1920"/>
+        <image name="Freezing Rain" width="150" height="150"/>
         <image name="Humidity" width="80" height="80"/>
         <image name="Mostly Clear" width="150" height="150"/>
         <image name="Pressure" width="80" height="80"/>
+        <image name="Today_Tab" width="28" height="28"/>
         <image name="Visibility" width="80" height="80"/>
+        <image name="Weather_Data_Tab" width="28" height="28"/>
+        <image name="Weekly_Tab" width="28" height="28"/>
         <image name="WindSpeed" width="80" height="80"/>
+        <image name="twitter" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

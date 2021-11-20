@@ -1,5 +1,5 @@
 //
-//  DetailViewController.swift
+//  WeeklyViewController.swift
 //  iWeather
 //
 //  Created by Tianxu Lan on 11/19/21.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-class DetailViewController: UITabBarController {
+class WeeklyViewController: UIViewController {
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Los Angeles"
+
+        // Do any additional setup after loading the view.
     }
     
 
@@ -25,13 +25,5 @@ class DetailViewController: UITabBarController {
         // Pass the selected object to the new view controller.
     }
     */
-    
-    @IBAction func twitterOnPressed(_ sender: UIButton) {
-        print("twitter button Pressed")
-        
-    }
-    
 
-    
-    
 }

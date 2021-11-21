@@ -9,10 +9,14 @@ import UIKit
 
 class WeeklyViewController: UIViewController {
 
+    @IBOutlet weak var titleView: UIView!
+    @IBOutlet weak var statusImagePath: UIImageView!
+    @IBOutlet weak var statusValue: UILabel!
+    @IBOutlet weak var temperatureValue: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        titleView.layer.borderColor = UIColor.white.cgColor
     }
     
 

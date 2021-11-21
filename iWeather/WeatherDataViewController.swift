@@ -9,9 +9,13 @@ import UIKit
 
 class WeatherDataViewController: UIViewController {
 
+    @IBOutlet weak var titleView: UIView!
+    @IBOutlet weak var precipitationValue: UILabel!
+    @IBOutlet weak var humidityValue: UILabel!
+    @IBOutlet weak var cloudCoverValue: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        titleView.layer.borderColor = UIColor.white.cgColor
         // Do any additional setup after loading the view.
     }
     

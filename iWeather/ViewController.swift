@@ -8,6 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController {
+    let searchController = UISearchController()
     // First sub outlets
     @IBOutlet weak var firstSubView: UIView!
     @IBOutlet weak var fsWeatherIcon: UIImageView!
@@ -26,7 +27,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         //Set up first sub view
         firstSubView.layer.borderColor = UIColor.white.cgColor
         fsTemperature.text = "1024°F"

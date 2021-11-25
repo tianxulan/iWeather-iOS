@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Home Page View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="iWeather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="HomePageViewController" customModule="iWeather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,7 +34,7 @@
                                 <rect key="frame" x="23" y="128" width="340" height="171"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Mostly Clear" translatesAutoresizingMaskIntoConstraints="NO" id="E5J-MC-xdL">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Heavy Snow" translatesAutoresizingMaskIntoConstraints="NO" id="E5J-MC-xdL">
                                         <rect key="frame" x="8" y="22" width="157" height="127"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
@@ -63,7 +63,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="340" height="171"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain"/>
+                                        <buttonConfiguration key="configuration" style="plain" title=""/>
                                         <connections>
                                             <action selector="firstSubViewOnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fjh-eo-Mil"/>
                                             <segue destination="oK8-ek-AEf" kind="show" id="D9A-Bz-aIz"/>
@@ -193,7 +193,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="340" height="167"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain"/>
+                                        <buttonConfiguration key="configuration" style="plain" title=""/>
                                         <connections>
                                             <segue destination="67p-KE-8k7" kind="show" id="dbV-9L-VNj"/>
                                         </connections>
@@ -213,7 +213,10 @@
                         <outlet property="fsStatus" destination="wDb-aT-l5n" id="DJe-HM-x3X"/>
                         <outlet property="fsTemperature" destination="REz-3z-H6w" id="WYX-1y-ct6"/>
                         <outlet property="fsWeatherIcon" destination="E5J-MC-xdL" id="zky-rn-NJ8"/>
-                        <outlet property="secondSubView" destination="yNm-hK-rqU" id="zFN-Xd-Z4X"/>
+                        <outlet property="ssHumidity" destination="Fa0-jy-GFq" id="e0R-Vu-W5X"/>
+                        <outlet property="ssPressure" destination="ijO-Xe-8fk" id="JoT-2C-ANV"/>
+                        <outlet property="ssVisibility" destination="1fq-lF-7y3" id="OyU-jN-awu"/>
+                        <outlet property="ssWindSpeed" destination="58q-oH-NHZ" id="x2G-Zf-fQM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -1049,13 +1052,14 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="IQi-Lo-Gq0"/>
+        <segue reference="D9A-Bz-aIz"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="App_background" width="1080" height="1920"/>
         <image name="Clear" width="150" height="150"/>
         <image name="CloudCover" width="80" height="80"/>
         <image name="Freezing Rain" width="150" height="150"/>
+        <image name="Heavy Snow" width="150" height="150"/>
         <image name="Humidity" width="80" height="80"/>
         <image name="Mostly Clear" width="150" height="150"/>
         <image name="Precipitation" width="80" height="80"/>

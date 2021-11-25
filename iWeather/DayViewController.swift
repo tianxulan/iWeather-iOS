@@ -7,10 +7,9 @@
 
 import UIKit
 
-class DayViewController: UIViewController {
+class DayViewController: UIViewController  {
 
     @IBOutlet var dayCell: [UIView]!
-  
     @IBOutlet weak var windSpeedValue: UILabel!
     @IBOutlet weak var pressureValue: UILabel!
     @IBOutlet weak var precipitationValue: UILabel!
@@ -21,13 +20,32 @@ class DayViewController: UIViewController {
     @IBOutlet weak var visibilityValue: UILabel!
     @IBOutlet weak var cloudCoverValue: UILabel!
     @IBOutlet weak var UVIndexValue: UILabel!
+    // file scope variable
+    var dayWeather = CurrentWeatherModel(temperature: "", status: "", humidity: "", windSpeed: "", visibility: "", pressure: "", precipitationProbability: "", cloudCover: "", UVIndex: "")
     override func viewDidLoad() {
+        //Static Setting up
         super.viewDidLoad()
         for item in dayCell
         {
             item.layer.borderColor = UIColor.white.cgColor
         }
-        // Do any additional setup after loading the view.
+        // Tasks right after view is load
+        
+        
+        
+    }
+    func refreshPage()
+    {
+        print("daasdsadasdasdasdasd" + self.dayWeather.status)
+        self.statusImagePath.image = UIImage(named: self.dayWeather.getImageName())
+        self.temperatureValue.text = self.dayWeather.getTemperatureText()
+        self.statusValue.text = self.dayWeather.getStatusText()
+        
+        self.humidityValue.text = self.dayWeather.getHumidityText()
+        self.windSpeedValue.text = self.dayWeather.getWindSpeedText()
+        self.visibilityValue.text = self.dayWeather.getVisibilityText()
+        self.pressureValue.text = self.dayWeather.getPressureText()
+        
     }
     
 

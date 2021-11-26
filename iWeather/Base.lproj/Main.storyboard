@@ -995,7 +995,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <segue destination="oK8-ek-AEf" kind="show" id="IQi-Lo-Gq0"/>
+                                            <segue destination="oK8-ek-AEf" kind="show" identifier="ResultToDetail" id="IQi-Lo-Gq0"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1052,7 +1052,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="D9A-Bz-aIz"/>
+        <segue reference="IQi-Lo-Gq0"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="App_background" width="1080" height="1920"/>

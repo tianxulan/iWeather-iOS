@@ -20,6 +20,7 @@ struct CurrentWeatherData: Decodable
     let uvIndex:Float
 }
 
+
 struct DailyWeatherData: Decodable
 {
     let startTime: String
@@ -85,5 +86,15 @@ struct CurrentWeatherModel
     {
         return UVIndex
     }
+    func getPrecipitationProbabilityText() -> String
+    {
+        return precipitationProbability + " %"
+    }
+    func getCloudCoverText() -> String
+    {
+        return cloudCover + " %"
+    }
     
 }
+
+

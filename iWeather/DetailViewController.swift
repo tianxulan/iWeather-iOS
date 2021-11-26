@@ -19,6 +19,9 @@ class DetailViewController: UITabBarController {
         //send data to weekly tab
         let weeklyVC = self.viewControllers![1] as! WeeklyViewController
         weeklyVC.weeklyWeather = detailWeather
+        //send data to weatherData tab
+        let weatherDataVC = self.viewControllers![2] as! WeatherDataViewController
+        weatherDataVC.weatherDataWeather = detailWeather
     }
     
 

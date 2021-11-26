@@ -41,8 +41,8 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate{
     @IBAction func firstSubViewOnPressed(_ sender: UIButton)
     {
         //change view and transfer data
-        let dayVC = DayViewController()
-        dayVC.dayWeather = homepageWeather
+//        let dayVC = DayViewController()
+//        dayVC.dayWeather = homepageWeather
         
     }
     func loadHomepageData()

@@ -37,14 +37,20 @@ class DayViewController: UIViewController  {
     }
     func refreshPage()
     {
-        self.statusImagePath.image = UIImage(named: self.dayWeather.getImageName())
-        self.temperatureValue.text = self.dayWeather.getTemperatureText()
-        self.statusValue.text = self.dayWeather.getStatusText()
-        self.UVIndexValue.text = self.dayWeather.getUVIndexText()
-        self.humidityValue.text = self.dayWeather.getHumidityText()
         self.windSpeedValue.text = self.dayWeather.getWindSpeedText()
-        self.visibilityValue.text = self.dayWeather.getVisibilityText()
         self.pressureValue.text = self.dayWeather.getPressureText()
+        self.precipitationValue.text = self.dayWeather.getPrecipitationProbabilityText()
+        self.temperatureValue.text = self.dayWeather.getTemperatureText()
+        self.statusImagePath.image = UIImage(named: self.dayWeather.getImageName())
+        self.statusValue.text = self.dayWeather.getStatusText()
+        self.statusValue.text = self.dayWeather.getStatusText()
+        self.humidityValue.text = self.dayWeather.getHumidityText()
+        self.visibilityValue.text = self.dayWeather.getVisibilityText()
+        self.cloudCoverValue.text = self.dayWeather.getCloudCoverText()
+        self.UVIndexValue.text = self.dayWeather.getUVIndexText()
+        
+        
+        
         
     }
     

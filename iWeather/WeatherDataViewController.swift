@@ -13,10 +13,18 @@ class WeatherDataViewController: UIViewController {
     @IBOutlet weak var precipitationValue: UILabel!
     @IBOutlet weak var humidityValue: UILabel!
     @IBOutlet weak var cloudCoverValue: UILabel!
+    var weatherDataWeather = CurrentWeatherModel(temperature: "", status: "", humidity: "", windSpeed: "", visibility: "", pressure: "", precipitationProbability: "", cloudCover: "", UVIndex: "")
     override func viewDidLoad() {
         super.viewDidLoad()
         titleView.layer.borderColor = UIColor.white.cgColor
-        // Do any additional setup after loading the view.
+        refreshPage()
+    }
+    func refreshPage()
+    {
+        
+        self.precipitationValue.text = self.weatherDataWeather.getPrecipitationProbabilityText()
+        self.humidityValue.text = self.weatherDataWeather.getHumidityText()
+        self.cloudCoverValue.text = self.weatherDataWeather.getCloudCoverText()
     }
     
 

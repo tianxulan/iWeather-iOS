@@ -13,6 +13,7 @@ class ResultPageViewController: UIViewController {
     @IBOutlet weak var favoriteButton: UIButton!
     var isCityFavorite:Bool!
     var city: String!
+    var resultPageWeather = CurrentWeatherModel(temperature: "56", status: "1000", humidity: "56", windSpeed: "56", visibility: "56", pressure: "56", precipitationProbability: "56", cloudCover: "56", UVIndex: "56")
     override func viewDidLoad() {
         super.viewDidLoad()
         //set city
@@ -55,6 +56,13 @@ class ResultPageViewController: UIViewController {
             
         }
         
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "ResultToDetail") {
+            let vc = segue.destination as! DetailViewController
+            vc.title = self.city
+            vc.detailWeather = resultPageWeather
+        }
     }
     
 }

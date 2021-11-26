@@ -30,17 +30,17 @@ class DayViewController: UIViewController  {
             item.layer.borderColor = UIColor.white.cgColor
         }
         // Tasks right after view is load
+        refreshPage()
         
         
         
     }
     func refreshPage()
     {
-        print("daasdsadasdasdasdasd" + self.dayWeather.status)
         self.statusImagePath.image = UIImage(named: self.dayWeather.getImageName())
         self.temperatureValue.text = self.dayWeather.getTemperatureText()
         self.statusValue.text = self.dayWeather.getStatusText()
-        
+        self.UVIndexValue.text = self.dayWeather.getUVIndexText()
         self.humidityValue.text = self.dayWeather.getHumidityText()
         self.windSpeedValue.text = self.dayWeather.getWindSpeedText()
         self.visibilityValue.text = self.dayWeather.getVisibilityText()

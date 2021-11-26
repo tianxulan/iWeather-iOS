@@ -9,10 +9,16 @@ import UIKit
 
 class DetailViewController: UITabBarController {
 
-    
+    var detailWeather = CurrentWeatherModel(temperature: "", status: "", humidity: "", windSpeed: "", visibility: "", pressure: "", precipitationProbability: "", cloudCover: "", UVIndex: "")
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Los Angeles"
+        
+        //send data to day tab
+        let dayVC = self.viewControllers![0] as! DayViewController
+        dayVC.dayWeather = detailWeather
+        //send data to weekly tab
+        let weeklyVC = self.viewControllers![1] as! WeeklyViewController
+        weeklyVC.weeklyWeather = detailWeather
     }
     
 

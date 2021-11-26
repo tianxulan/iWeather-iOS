@@ -66,7 +66,7 @@
                                         <buttonConfiguration key="configuration" style="plain" title=""/>
                                         <connections>
                                             <action selector="firstSubViewOnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fjh-eo-Mil"/>
-                                            <segue destination="oK8-ek-AEf" kind="show" id="D9A-Bz-aIz"/>
+                                            <segue destination="oK8-ek-AEf" kind="show" identifier="HomepageToDetail" id="D9A-Bz-aIz"/>
                                         </connections>
                                     </button>
                                 </subviews>

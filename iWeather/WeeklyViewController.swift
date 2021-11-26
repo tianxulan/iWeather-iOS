@@ -8,15 +8,25 @@
 import UIKit
 
 class WeeklyViewController: UIViewController {
-
+    
     @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var statusImagePath: UIImageView!
     @IBOutlet weak var statusValue: UILabel!
     @IBOutlet weak var temperatureValue: UILabel!
+    //file scope variable
+    var weeklyWeather = CurrentWeatherModel(temperature: "", status: "", humidity: "", windSpeed: "", visibility: "", pressure: "", precipitationProbability: "", cloudCover: "", UVIndex: "")
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //static setting
         titleView.layer.borderColor = UIColor.white.cgColor
+        //operation right after loading view
+        refreshPage()
+    }
+    func refreshPage()
+    {
+        self.statusImagePath.image = UIImage(named: self.weeklyWeather.getImageName())
+        self.temperatureValue.text = self.weeklyWeather.getTemperatureText()
+        self.statusValue.text = self.weeklyWeather.getStatusText()
     }
     
 

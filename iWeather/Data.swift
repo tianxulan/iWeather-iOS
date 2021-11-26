@@ -81,6 +81,9 @@ struct CurrentWeatherModel
     {
         return pressure + " inHg"
     }
-    
+    func getUVIndexText() -> String
+    {
+        return UVIndex
+    }
     
 }

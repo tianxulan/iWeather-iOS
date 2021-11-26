@@ -74,5 +74,12 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate{
         self.ssPressure.text = self.homepageWeather.getPressureText()
         //third table view
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "HomepageToDetail") {
+            let vc = segue.destination as! DetailViewController
+            vc.title = self.city
+            vc.detailWeather = homepageWeather
+        }
+    }
 }
 

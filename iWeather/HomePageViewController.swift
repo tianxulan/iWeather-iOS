@@ -7,7 +7,9 @@
 
 import UIKit
 
-class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate{
+class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, DailyWeatherServiceDelegate{
+    
+    
     let searchController = UISearchController()
     // First sub outlets
     @IBOutlet weak var firstSubView: UIView!
@@ -27,6 +29,7 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate{
     // File-Scope variables
     var city = String()
     var homepageWeather = CurrentWeatherModel(temperature: "", status: "", humidity: "", windSpeed: "", visibility: "", pressure: "", precipitationProbability: "", cloudCover: "", UVIndex: "")
+    var dailyWeather = DailyWeatherModel(dayCells:  [])
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -35,6 +38,9 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate{
         city = "Tucson"
         currentWeatherService.delegate = self
         loadHomepageData()
+        dailyWeatherService.delegate = self
+        dailyWeatherService.fetchWeatherExample()
+        
         
     }
 
@@ -57,6 +63,13 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate{
         DispatchQueue.main.async {
             self.homepageWeather = currentWeather
             self.refreshPage()
+        }
+    }
+    func didUpdateDailyWeather(dailyweatherModel: DailyWeatherModel) {
+        DispatchQueue.main.async {
+            
+            self.dailyWeather = dailyweatherModel
+            
         }
     }
     

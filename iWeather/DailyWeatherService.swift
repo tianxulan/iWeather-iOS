@@ -6,11 +6,15 @@
 //
 
 import Foundation
+protocol DailyWeatherServiceDelegate
+{
+    func didUpdateDailyWeather(dailyweatherModel:DailyWeatherModel)
+}
 struct DailyWeatherService
 {
     let weatherURL = ""
-    
-    func fetchWeather(latitude: String, longitude: String, type: String)
+    var delegate: DailyWeatherServiceDelegate?
+    func fetchWeather(latitude: String, longitude: String)
     {
         
     }
@@ -32,22 +36,45 @@ struct DailyWeatherService
                 }
                 if let safeData = data
                 {
-                    self.parseJSON(weatherData: safeData)
+                    if let weather = self.parseJSON(weatherData: safeData)
+                    {
+                        self.delegate?.didUpdateDailyWeather(dailyweatherModel:weather)
+                    }
                 }
             }
             task.resume()
         }
     }
-    func parseJSON(weatherData: Data)
+    func parseJSON(weatherData: Data) -> DailyWeatherModel?
     {
         let decoder = JSONDecoder()
         do
         {
             let decodedData = try decoder.decode([DailyWeatherData].self, from: weatherData)
-            print(decodedData[0].values.sunriseTime)
+            var dailyWeatherCellsArray: Array<DailyWeatherCellModel> = []
+        
+            for decodedDataCell in decodedData {
+                let date = String(decodedDataCell.startTime)
+                let status = String(decodedDataCell.values.weatherCode)
+                let sunriseTime = String(decodedDataCell.values.sunriseTime)
+                let sunsetTime = String(decodedDataCell.values.sunsetTime)
+                let temperatureMax = String(decodedDataCell.values.temperatureMax)
+                let temperatureMin = String(decodedDataCell.values.temperatureMin)
+                
+                let dailyWeatherCell = DailyWeatherCellModel(date: date, weatherCode: status, sunriseTime: sunriseTime, sunsetTime: sunsetTime, temperatureMax: temperatureMax, temperatureMin: temperatureMin)
+                dailyWeatherCellsArray.append(dailyWeatherCell)
+            }
+            let dailyWeatherModel = DailyWeatherModel(dayCells: dailyWeatherCellsArray)
+            
+            
+            
+            
+            return dailyWeatherModel
+            
         }catch
         {
             print(error)
+            return nil
         }
         
         

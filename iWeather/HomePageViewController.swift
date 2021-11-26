@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import CoreLocation
 class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, DailyWeatherServiceDelegate{
     
     
@@ -29,17 +29,27 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
     // File-Scope variables
     var city = String()
     var homepageWeather = CurrentWeatherModel(temperature: "", status: "", humidity: "", windSpeed: "", visibility: "", pressure: "", precipitationProbability: "", cloudCover: "", UVIndex: "")
+    let locationManager = CLLocationManager()
     var dailyWeather = DailyWeatherModel(dayCells:  [])
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         //Set up first sub view
         firstSubView.layer.borderColor = UIColor.white.cgColor
-        city = "Tucson"
+        
+        
+        //User Location
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+        
+        //Weather service
         currentWeatherService.delegate = self
         loadHomepageData()
         dailyWeatherService.delegate = self
         dailyWeatherService.fetchWeatherExample()
+        
+        
         
         
     }
@@ -95,4 +105,30 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
         }
     }
 }
-
+// MARL: - CLLocationManagerDelegate
+extension HomePageViewController:CLLocationManagerDelegate
+{
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last
+        {
+            let lat = location.coordinate.latitude
+            let lon = location.coordinate.longitude
+            let geocoder = CLGeocoder()
+            geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
+                        if error == nil {
+                            if let firstLocation = placemarks?[0],
+                                let cityName = firstLocation.locality {
+                                // get the city name
+                                self?.city = cityName
+                                self?.fsCity.text = self?.city
+                                
+                            }
+                        }
+                    }
+        }
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+    
+}

@@ -23,6 +23,8 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
     @IBOutlet weak var ssWindSpeed: UILabel!
     @IBOutlet weak var ssVisibility: UILabel!
     @IBOutlet weak var ssPressure: UILabel!
+    // Third Sub
+    @IBOutlet weak var dailyTable: UITableView!
     // Services
     var currentWeatherService = CurrentWeatherService()
     var dailyWeatherService = DailyWeatherService()
@@ -46,9 +48,20 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
         //Weather service
         currentWeatherService.delegate = self
         loadHomepageData()
+        
+        //Future seven days data
         dailyWeatherService.delegate = self
         dailyWeatherService.fetchWeatherExample()
         
+        //Table View
+        dailyTable.dataSource = self
+        dailyTable.delegate = self
+        dailyTable.register(UINib(nibName: "DailyCell", bundle: Bundle.main), forCellReuseIdentifier: "DayCell")
+        //put dummy data for tableview
+//        for _ in 1...7
+//        {
+//            dailyWeather.dayCells.append(DailyWeatherCellModel(date: "", weatherCode: "", sunriseTime: "", sunsetTime: "", temperatureMax: "", temperatureMin: ""))
+//        }
         
         
         
@@ -79,6 +92,9 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
         DispatchQueue.main.async {
             
             self.dailyWeather = dailyweatherModel
+            print("RUN")
+            print(dailyweatherModel)
+            self.dailyTable.reloadData()
             
         }
     }
@@ -132,3 +148,35 @@ extension HomePageViewController:CLLocationManagerDelegate
     }
     
 }
+
+extension HomePageViewController: UITableViewDataSource, UITableViewDelegate
+{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 7
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("LINE 159")
+        print(dailyWeather)
+        let cell = dailyTable.dequeueReusableCell(withIdentifier: "DayCell", for:indexPath) as! DailyCell
+        if dailyWeather.dayCells.isEmpty
+        {
+            
+            return cell
+        }
+        print("LINE 166")
+        print(dailyWeather.dayCells[indexPath.row])
+        
+        
+        cell.date.text = dailyWeather.dayCells[indexPath.row].getDateFormatted()
+        cell.sunriseTime.text = dailyWeather.dayCells[indexPath.row].getSunriseTimeFormatted()
+        cell.statusImage.image = UIImage(named: dailyWeather.dayCells[indexPath.row].getWeatherImagePath())
+        cell.sunsetTime.text = dailyWeather.dayCells[indexPath.row].getSunsetTimeFormatted()
+        
+        return cell
+    }
+    
+    
+}
+
+ 

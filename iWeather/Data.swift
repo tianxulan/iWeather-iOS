@@ -105,7 +105,7 @@ struct CurrentWeatherModel
 
 struct DailyWeatherModel
 {
-    let dayCells: Array<DailyWeatherCellModel>
+    var dayCells: Array<DailyWeatherCellModel>
 }
 
 struct DailyWeatherCellModel {
@@ -118,6 +118,7 @@ struct DailyWeatherCellModel {
     
     func getDateFormatted() -> String
     {
+        
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
         let mydate = inputFormatter.date(from: date)!
@@ -129,10 +130,12 @@ struct DailyWeatherCellModel {
     
     func getWeatherImagePath() -> String
     {
+        
         return WeatherCodeDescript[weatherCode]! + ".png"
     }
     func getSunriseTimeFormatted() -> String
     {
+        
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
         let mydate = inputFormatter.date(from: sunriseTime)!
@@ -144,6 +147,10 @@ struct DailyWeatherCellModel {
     }
     func getSunsetTimeFormatted() -> String
     {
+        if sunsetTime == ""
+        {
+            return ""
+        }
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
         let mydate = inputFormatter.date(from: sunsetTime)!
@@ -155,10 +162,12 @@ struct DailyWeatherCellModel {
     }
     func getTemperatureMax() -> String
     {
+        
         return temperatureMax
     }
     func getTemperatureMin() -> String
     {
+        
         return temperatureMin
     }
 }

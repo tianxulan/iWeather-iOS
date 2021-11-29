@@ -9,8 +9,15 @@ import UIKit
 import CoreLocation
 class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, DailyWeatherServiceDelegate{
     
-    
-    let searchController = UISearchController()
+    // Search Bar
+    @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet weak var placeTable: UITableView!
+    let data = ["New York, NY", "Los Angeles, CA", "Chicago, IL", "Houston, TX",
+            "Philadelphia, PA", "Phoenix, AZ", "San Diego, CA", "San Antonio, TX",
+            "Dallas, TX", "Detroit, MI", "San Jose, CA", "Indianapolis, IN",
+            "Jacksonville, FL", "San Francisco, CA", "Columbus, OH", "Austin, TX",
+            "Memphis, TN", "Baltimore, MD", "Charlotte, ND", "Fort Worth, TX"]
+    var filteredData: [String]!
     // First sub outlets
     @IBOutlet weak var firstSubView: UIView!
     @IBOutlet weak var fsWeatherIcon: UIImageView!
@@ -36,6 +43,17 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        //Search bar
+        navigationItem.titleView = searchBar
+//        searchBar.prompt = "Enter City Name..."
+        
+        placeTable.dataSource = self
+        searchBar.delegate = self
+        placeTable.delegate = self
+        filteredData = data
+        placeTable.isHidden = true
+//        searchBar.endEditing(true)
+        
         //Set up first sub view
         firstSubView.layer.borderColor = UIColor.white.cgColor
         
@@ -121,6 +139,7 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
         }
     }
 }
+
 // MARL: - CLLocationManagerDelegate
 extension HomePageViewController:CLLocationManagerDelegate
 {
@@ -152,31 +171,76 @@ extension HomePageViewController:CLLocationManagerDelegate
 extension HomePageViewController: UITableViewDataSource, UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        if tableView == dailyTable
+        {
+            return 7
+        }
+        else
+        {
+            return filteredData.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("LINE 159")
-        print(dailyWeather)
-        let cell = dailyTable.dequeueReusableCell(withIdentifier: "DayCell", for:indexPath) as! DailyCell
-        if dailyWeather.dayCells.isEmpty
+        if tableView == dailyTable
         {
+            let cell = dailyTable.dequeueReusableCell(withIdentifier: "DayCell", for:indexPath) as! DailyCell
+            if dailyWeather.dayCells.isEmpty
+            {
+                
+                return cell
+            }
+            cell.date.text = dailyWeather.dayCells[indexPath.row].getDateFormatted()
+            cell.sunriseTime.text = dailyWeather.dayCells[indexPath.row].getSunriseTimeFormatted()
+            cell.statusImage.image = UIImage(named: dailyWeather.dayCells[indexPath.row].getWeatherImagePath())
+            cell.sunsetTime.text = dailyWeather.dayCells[indexPath.row].getSunsetTimeFormatted()
             
             return cell
         }
-        print("LINE 166")
-        print(dailyWeather.dayCells[indexPath.row])
+        else
+        {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceCell", for: indexPath) as UITableViewCell
+            cell.textLabel?.text = filteredData[indexPath.row]
+            return cell
+            
+        }
         
-        
-        cell.date.text = dailyWeather.dayCells[indexPath.row].getDateFormatted()
-        cell.sunriseTime.text = dailyWeather.dayCells[indexPath.row].getSunriseTimeFormatted()
-        cell.statusImage.image = UIImage(named: dailyWeather.dayCells[indexPath.row].getWeatherImagePath())
-        cell.sunsetTime.text = dailyWeather.dayCells[indexPath.row].getSunsetTimeFormatted()
-        
-        return cell
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == placeTable
+        {
+            print(indexPath.row)
+            searchBar.endEditing(true)
+            tableView.isHidden = true
+        }
+        
+    }
+
     
     
 }
 
- 
+extension HomePageViewController:UISearchBarDelegate
+{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            // When there is no text, filteredData is the same as the original data
+            // When user has entered text into the search box
+            // Use the filter method to iterate over all items in the data array
+            // For each item, return true if the item should be included and false if the
+            // item should NOT be included
+            filteredData = searchText.isEmpty ? data : data.filter { (item: String) -> Bool in
+                // If dataItem matches the searchText, return true to include it
+                return item.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+            }
+            
+            placeTable.reloadData()
+        }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
+    {
+        placeTable.isHidden = false
+        
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        placeTable.isHidden = true
+    }
+}

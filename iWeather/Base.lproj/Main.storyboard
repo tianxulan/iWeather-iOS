@@ -21,13 +21,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Enter City Name..." translatesAutoresizingMaskIntoConstraints="NO" id="EAw-Ns-VHf">
-                                <rect key="frame" x="1" y="44" width="390" height="51"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="App_background" translatesAutoresizingMaskIntoConstraints="NO" id="TEG-3g-kCh">
-                                <rect key="frame" x="0.0" y="97" width="1081" height="756"/>
+                                <rect key="frame" x="0.0" y="97" width="390" height="747"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iV8-II-Fvx">
@@ -201,12 +196,31 @@
                                     </button>
                                 </subviews>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" sectionIndexMinimumDisplayRowCount="4" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="mBi-wQ-hhZ">
+                                <rect key="frame" x="0.0" y="88" width="388" height="196"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" systemColor="labelColor"/>
+                                <color key="sectionIndexColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlaceCell" id="3KO-dw-p8n">
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="388" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3KO-dw-p8n" id="v0R-D8-bIQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="388" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="emm-Tq-DuS">
-                        <barButtonItem key="backBarButtonItem" title="Weather" id="SG3-2P-Uzb"/>
+                    <navigationItem key="navigationItem" id="Q85-WU-L7C">
+                        <barButtonItem key="backBarButtonItem" title="Weather" id="Ned-zC-JSx"/>
                     </navigationItem>
                     <connections>
                         <outlet property="dailyTable" destination="sj7-A8-KLP" id="5kU-V6-73o"/>
@@ -215,6 +229,8 @@
                         <outlet property="fsStatus" destination="wDb-aT-l5n" id="DJe-HM-x3X"/>
                         <outlet property="fsTemperature" destination="REz-3z-H6w" id="WYX-1y-ct6"/>
                         <outlet property="fsWeatherIcon" destination="E5J-MC-xdL" id="zky-rn-NJ8"/>
+                        <outlet property="placeTable" destination="mBi-wQ-hhZ" id="HJ9-mW-VGO"/>
+                        <outlet property="searchBar" destination="Go5-t9-RNW" id="Xil-EQ-tsl"/>
                         <outlet property="ssHumidity" destination="Fa0-jy-GFq" id="e0R-Vu-W5X"/>
                         <outlet property="ssPressure" destination="ijO-Xe-8fk" id="JoT-2C-ANV"/>
                         <outlet property="ssVisibility" destination="1fq-lF-7y3" id="OyU-jN-awu"/>
@@ -222,6 +238,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <searchBar contentMode="redraw" placeholder="Enter City Name..." id="Go5-t9-RNW">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
             </objects>
             <point key="canvasLocation" x="281.53846153846155" y="-1612.3222748815165"/>
         </scene>
@@ -1125,6 +1146,9 @@
         <image name="WindSpeed" width="80" height="80"/>
         <image name="plus-circle" width="30" height="30"/>
         <image name="twitter" width="24" height="24"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

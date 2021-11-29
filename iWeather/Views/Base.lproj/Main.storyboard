@@ -185,15 +185,6 @@
                                             </label>
                                         </subviews>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gim-hB-cjW">
-                                        <rect key="frame" x="0.0" y="0.0" width="340" height="167"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title=""/>
-                                        <connections>
-                                            <segue destination="67p-KE-8k7" kind="show" id="dbV-9L-VNj"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" sectionIndexMinimumDisplayRowCount="4" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="mBi-wQ-hhZ">
@@ -235,6 +226,7 @@
                         <outlet property="ssPressure" destination="ijO-Xe-8fk" id="JoT-2C-ANV"/>
                         <outlet property="ssVisibility" destination="1fq-lF-7y3" id="OyU-jN-awu"/>
                         <outlet property="ssWindSpeed" destination="58q-oH-NHZ" id="x2G-Zf-fQM"/>
+                        <segue destination="67p-KE-8k7" kind="show" identifier="HomepageToResult" id="ycN-y1-quI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

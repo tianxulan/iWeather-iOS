@@ -18,10 +18,20 @@ struct CurrentWeatherService
     {
         
     }
-    func fetchWeatherExample()
+    func fetchWeather(latitude:String, longtitude:String)
     {
-        let urlString = "https://weather-node-330706.wn.r.appspot.com/currentExampleProcessed.json"
-        performRequest(urlString: urlString)
+        if K.prodEnvironment
+        {
+            let urlString = "https://weather-node-330706.wn.r.appspot.com//search?latitude=\(latitude)&longitude=\(longtitude)&type=daily"
+            performRequest(urlString: urlString)
+            
+        }
+        else
+        {
+            let urlString = "https://weather-node-330706.wn.r.appspot.com/currentExampleProcessed.json"
+            performRequest(urlString: urlString)
+        }
+        
     }
     func performRequest (urlString: String)
     {

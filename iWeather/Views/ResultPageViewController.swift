@@ -17,7 +17,6 @@ class ResultPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //set city
-        self.city = "Las Vegas"
         // set title
         self.title = self.city
         // set current favorite state

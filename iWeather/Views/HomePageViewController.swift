@@ -7,16 +7,16 @@
 
 import UIKit
 import CoreLocation
-class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, DailyWeatherServiceDelegate{
+class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, DailyWeatherServiceDelegate, AutocompleteServiceDelegate{
     
     // Search Bar
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet weak var placeTable: UITableView!
-    let data = ["New York, NY", "Los Angeles, CA", "Chicago, IL", "Houston, TX",
-            "Philadelphia, PA", "Phoenix, AZ", "San Diego, CA", "San Antonio, TX",
-            "Dallas, TX", "Detroit, MI", "San Jose, CA", "Indianapolis, IN",
-            "Jacksonville, FL", "San Francisco, CA", "Columbus, OH", "Austin, TX",
-            "Memphis, TN", "Baltimore, MD", "Charlotte, ND", "Fort Worth, TX"]
+//    let data = ["New York, NY", "Los Angeles, CA", "Chicago, IL", "Houston, TX",
+//            "Philadelphia, PA", "Phoenix, AZ", "San Diego, CA", "San Antonio, TX",
+//            "Dallas, TX", "Detroit, MI", "San Jose, CA", "Indianapolis, IN",
+//            "Jacksonville, FL", "San Francisco, CA", "Columbus, OH", "Austin, TX",
+//            "Memphis, TN", "Baltimore, MD", "Charlotte, ND", "Fort Worth, TX"]
     var filteredData: [String]!
     // First sub outlets
     @IBOutlet weak var firstSubView: UIView!
@@ -35,11 +35,14 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
     // Services
     var currentWeatherService = CurrentWeatherService()
     var dailyWeatherService = DailyWeatherService()
+    var autoCompleteService = AutocompleteService()
     // File-Scope variables
-    var city = String()
+    var currentCity = String()
+    var searchCity = String()
     var homepageWeather = CurrentWeatherModel(temperature: "", status: "", humidity: "", windSpeed: "", visibility: "", pressure: "", precipitationProbability: "", cloudCover: "", UVIndex: "")
     let locationManager = CLLocationManager()
     var dailyWeather = DailyWeatherModel(dayCells:  [])
+    var autoComplete = AutocompleteModel(placeCells: [])
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -50,8 +53,10 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
         placeTable.dataSource = self
         searchBar.delegate = self
         placeTable.delegate = self
-        filteredData = data
+        filteredData = []
         placeTable.isHidden = true
+        autoCompleteService.delegate = self
+        
 //        searchBar.endEditing(true)
         
         //Set up first sub view
@@ -84,6 +89,18 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
         
         
     }
+    func didUpdateAutocomplete(autocompletemodel: AutocompleteModel) {
+        DispatchQueue.main.async {
+            self.autoComplete = autocompletemodel
+            self.filteredData = []
+            for item in self.autoComplete.placeCells
+            {
+                self.filteredData.append(item.cityName)
+            }
+            
+            self.placeTable.reloadData()
+        }
+    }
 
     @IBAction func firstSubViewOnPressed(_ sender: UIButton)
     {
@@ -94,8 +111,7 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
     }
     func loadHomepageData()
     {
-        print("load data for Homepage")
-        currentWeatherService.fetchWeatherExample()
+        currentWeatherService.fetchWeather(latitude: "32",longtitude: "33")
     }
     
     func didUpdateCurrentWeather(currentWeather: CurrentWeatherModel)
@@ -108,10 +124,7 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
     }
     func didUpdateDailyWeather(dailyweatherModel: DailyWeatherModel) {
         DispatchQueue.main.async {
-            
             self.dailyWeather = dailyweatherModel
-            print("RUN")
-            print(dailyweatherModel)
             self.dailyTable.reloadData()
             
         }
@@ -134,8 +147,14 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "HomepageToDetail") {
             let vc = segue.destination as! DetailViewController
-            vc.title = self.city
+            vc.title = self.currentCity
             vc.detailWeather = homepageWeather
+        }
+        if (segue.identifier == "HomepageToResult")
+        {
+            let vc = segue.destination as! ResultPageViewController
+            vc.city = self.searchCity
+            
         }
     }
 }
@@ -154,8 +173,8 @@ extension HomePageViewController:CLLocationManagerDelegate
                             if let firstLocation = placemarks?[0],
                                 let cityName = firstLocation.locality {
                                 // get the city name
-                                self?.city = cityName
-                                self?.fsCity.text = self?.city
+                                self?.currentCity = cityName
+                                self?.fsCity.text = self?.currentCity
                                 
                             }
                         }
@@ -212,6 +231,10 @@ extension HomePageViewController: UITableViewDataSource, UITableViewDelegate
             print(indexPath.row)
             searchBar.endEditing(true)
             tableView.isHidden = true
+            
+            searchCity = filteredData[indexPath.row]
+            // perform segue
+            self.performSegue(withIdentifier: "HomepageToResult", sender: self)
         }
         
     }
@@ -228,18 +251,16 @@ extension HomePageViewController:UISearchBarDelegate
             // Use the filter method to iterate over all items in the data array
             // For each item, return true if the item should be included and false if the
             // item should NOT be included
-            filteredData = searchText.isEmpty ? data : data.filter { (item: String) -> Bool in
+            placeTable.isHidden = false
+            self.autoCompleteService.fetchAutocomplete(keyword:searchBar.text! )
+            filteredData = searchText.isEmpty ? filteredData : filteredData.filter { (item: String) -> Bool in
                 // If dataItem matches the searchText, return true to include it
                 return item.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
             }
             
             placeTable.reloadData()
         }
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
-    {
-        placeTable.isHidden = false
-        
-    }
+    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         placeTable.isHidden = true
     }

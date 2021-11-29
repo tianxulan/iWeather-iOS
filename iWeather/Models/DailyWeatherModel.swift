@@ -55,7 +55,6 @@ struct DailyWeatherCellModel {
         let mydate = inputFormatter.date(from: date)!
         let outputFormatter = DateFormatter()
         outputFormatter.dateFormat = "MM/dd/yyyy"    //The OUT PUT FORMAT
-        print(outputFormatter.string(from: mydate))
         return outputFormatter.string(from: mydate)
     }
     
@@ -72,7 +71,7 @@ struct DailyWeatherCellModel {
         let mydate = inputFormatter.date(from: sunriseTime)!
         let outputFormatter = DateFormatter()
         outputFormatter.dateFormat = "HH:mm"    //The OUT PUT FORMAT
-        print(outputFormatter.string(from: mydate))
+        
         return outputFormatter.string(from: mydate)
 
     }
@@ -87,7 +86,6 @@ struct DailyWeatherCellModel {
         let mydate = inputFormatter.date(from: sunsetTime)!
         let outputFormatter = DateFormatter()
         outputFormatter.dateFormat = "HH:mm"    //The OUT PUT FORMAT
-        print(outputFormatter.string(from: mydate))
         return outputFormatter.string(from: mydate)
 
     }

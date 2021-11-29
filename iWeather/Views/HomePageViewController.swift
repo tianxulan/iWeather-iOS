@@ -12,12 +12,9 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
     // Search Bar
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet weak var placeTable: UITableView!
-//    let data = ["New York, NY", "Los Angeles, CA", "Chicago, IL", "Houston, TX",
-//            "Philadelphia, PA", "Phoenix, AZ", "San Diego, CA", "San Antonio, TX",
-//            "Dallas, TX", "Detroit, MI", "San Jose, CA", "Indianapolis, IN",
-//            "Jacksonville, FL", "San Francisco, CA", "Columbus, OH", "Austin, TX",
-//            "Memphis, TN", "Baltimore, MD", "Charlotte, ND", "Fort Worth, TX"]
+
     var filteredData: [String]!
+    var placeDescriptions: [String]!
     // First sub outlets
     @IBOutlet weak var firstSubView: UIView!
     @IBOutlet weak var fsWeatherIcon: UIImageView!
@@ -32,17 +29,22 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
     @IBOutlet weak var ssPressure: UILabel!
     // Third Sub
     @IBOutlet weak var dailyTable: UITableView!
+    
     // Services
     var currentWeatherService = CurrentWeatherService()
     var dailyWeatherService = DailyWeatherService()
     var autoCompleteService = AutocompleteService()
+    
     // File-Scope variables
     var currentCity = String()
     var searchCity = String()
+    var searchCityDescrption = String()
     var homepageWeather = CurrentWeatherModel(temperature: "", status: "", humidity: "", windSpeed: "", visibility: "", pressure: "", precipitationProbability: "", cloudCover: "", UVIndex: "")
     let locationManager = CLLocationManager()
     var dailyWeather = DailyWeatherModel(dayCells:  [])
     var autoComplete = AutocompleteModel(placeCells: [])
+    var currentGeolocation = GeoLocationModel(latitude: "", longitude: "")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -54,6 +56,7 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
         searchBar.delegate = self
         placeTable.delegate = self
         filteredData = []
+        placeDescriptions = []
         placeTable.isHidden = true
         autoCompleteService.delegate = self
         
@@ -70,11 +73,11 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
         
         //Weather service
         currentWeatherService.delegate = self
-        loadHomepageData()
+        
         
         //Future seven days data
         dailyWeatherService.delegate = self
-        dailyWeatherService.fetchWeatherExample()
+        
         
         //Table View
         dailyTable.dataSource = self
@@ -93,9 +96,11 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
         DispatchQueue.main.async {
             self.autoComplete = autocompletemodel
             self.filteredData = []
+            self.placeDescriptions = []
             for item in self.autoComplete.placeCells
             {
                 self.filteredData.append(item.cityName)
+                self.placeDescriptions.append(item.cityDescription)
             }
             
             self.placeTable.reloadData()
@@ -109,9 +114,10 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
 //        dayVC.dayWeather = homepageWeather
         
     }
-    func loadHomepageData()
+    func loadHomepageData(currentLocation: GeoLocationModel)
     {
-        currentWeatherService.fetchWeather(latitude: "32",longtitude: "33")
+        currentWeatherService.fetchWeather(latitude: currentLocation.latitude,longtitude: currentLocation.longitude)
+        dailyWeatherService.fetchWeather(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
     }
     
     func didUpdateCurrentWeather(currentWeather: CurrentWeatherModel)
@@ -152,9 +158,9 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
         }
         if (segue.identifier == "HomepageToResult")
         {
-            let vc = segue.destination as! ResultPageViewController
+            let vc = segue.destination as! SearchResultViewController
             vc.city = self.searchCity
-            
+            vc.addressDescription = self.searchCityDescrption
         }
     }
 }
@@ -167,6 +173,9 @@ extension HomePageViewController:CLLocationManagerDelegate
         {
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
+            self.currentGeolocation.latitude = String(lat)
+            self.currentGeolocation.longitude = String(lon)
+            self.loadHomepageData(currentLocation: self.currentGeolocation)
             let geocoder = CLGeocoder()
             geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
                         if error == nil {
@@ -228,11 +237,12 @@ extension HomePageViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == placeTable
         {
-            print(indexPath.row)
+            
             searchBar.endEditing(true)
             tableView.isHidden = true
             
             searchCity = filteredData[indexPath.row]
+            searchCityDescrption = placeDescriptions[indexPath.row]
             // perform segue
             self.performSegue(withIdentifier: "HomepageToResult", sender: self)
         }

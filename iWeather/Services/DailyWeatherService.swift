@@ -16,15 +16,25 @@ struct DailyWeatherService
     var delegate: DailyWeatherServiceDelegate?
     func fetchWeather(latitude: String, longitude: String)
     {
+        if K.prodEnvironment
+        {
+           let urlString = "https://weather-node-330706.wn.r.appspot.com//search?latitude=\(latitude)&longitude=\(longitude)&type=daily"
+            
+           performRequest(urlString: urlString)
+            
+        }
+        else
+        {
+            let urlString = "https://weather-node-330706.wn.r.appspot.com/dailyExampleProcessed.json"
+            performRequest(urlString: urlString)
+            
+        }
         
     }
-    func fetchWeatherExample()
-    {
-        let urlString = "https://weather-node-330706.wn.r.appspot.com/dailyExampleProcessed.json"
-        performRequest(urlString: urlString)
-    }
+    
     func performRequest (urlString: String)
     {
+        print("URL sent: " + urlString )
         if let url = URL(string:urlString)
         {
             let session = URLSession(configuration: .default)

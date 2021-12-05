@@ -7,6 +7,6 @@
 
 struct K
 {
-    static let prodEnvironment = true
+    static let prodEnvironment = false
     
 }

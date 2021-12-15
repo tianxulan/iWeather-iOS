@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "33BF8786-F79F-496A-B4D6-E0693B9F3563"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3CCCA1A1-8FBB-44D6-8211-7F30960F522B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../../../../xiu/My Drive/Education/USC/CSCI 571/Homeworks/HW9/iWeather/iWeather/Data.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "getDateFormatted()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8DE530BE-7390-4B6F-ABA7-976E2E193EDC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../../../../xiu/My Drive/Education/USC/CSCI 571/Homeworks/HW9/iWeather/iWeather/DailyCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "DailyCell"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "8DE530BE-7390-4B6F-ABA7-976E2E193EDC - c6289ea1b7d389f1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iWeather.DailyCell.date.getter : Swift.Optional&lt;__C.UILabel&gt;"
+                  moduleName = "iWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiu/My%20Drive/Education/USC/CSCI%20571/Homeworks/HW9/iWeather/iWeather/DailyCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  uuid = "8DE530BE-7390-4B6F-ABA7-976E2E193EDC - f8f611321ff62585"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iWeather.DailyCell.date.setter : Swift.Optional&lt;__C.UILabel&gt;"
+                  moduleName = "iWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiu/My%20Drive/Education/USC/CSCI%20571/Homeworks/HW9/iWeather/iWeather/DailyCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  uuid = "8DE530BE-7390-4B6F-ABA7-976E2E193EDC - eb4301e4dc12229b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iWeather.DailyCell.date.modify : Swift.Optional&lt;__C.UILabel&gt;"
+                  moduleName = "iWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiu/My%20Drive/Education/USC/CSCI%20571/Homeworks/HW9/iWeather/iWeather/DailyCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  uuid = "8DE530BE-7390-4B6F-ABA7-976E2E193EDC - 4a5920baa6d56085"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iWeather.DailyCell.date.modify : Swift.Optional&lt;__C.UILabel&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "iWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiu/My%20Drive/Education/USC/CSCI%20571/Homeworks/HW9/iWeather/iWeather/DailyCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  uuid = "8DE530BE-7390-4B6F-ABA7-976E2E193EDC - 746dbfbaa4d4d80b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iWeather.DailyCell.init(style: __C.UITableViewCellStyle, reuseIdentifier: Swift.Optional&lt;Swift.String&gt;) -&gt; iWeather.DailyCell"
+                  moduleName = "iWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiu/My%20Drive/Education/USC/CSCI%20571/Homeworks/HW9/iWeather/iWeather/DailyCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  uuid = "8DE530BE-7390-4B6F-ABA7-976E2E193EDC - 1e80cbd0bd766c4e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iWeather.DailyCell.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;iWeather.DailyCell&gt;"
+                  moduleName = "iWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiu/My%20Drive/Education/USC/CSCI%20571/Homeworks/HW9/iWeather/iWeather/DailyCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "72">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

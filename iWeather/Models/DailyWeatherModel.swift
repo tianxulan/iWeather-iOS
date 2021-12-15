@@ -56,6 +56,15 @@ struct DailyWeatherCellModel {
         let outputFormatter = DateFormatter()
         outputFormatter.dateFormat = "MM/dd/yyyy"    //The OUT PUT FORMAT
         return outputFormatter.string(from: mydate)
+       
+    }
+    func getDateTimestamp() -> Int64
+    {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        let mydate = inputFormatter.date(from: date)!
+        print(Int64(mydate.timeIntervalSince1970))
+        return Int64(mydate.timeIntervalSince1970)
     }
     
     func getWeatherImagePath() -> String
@@ -94,9 +103,18 @@ struct DailyWeatherCellModel {
         
         return temperatureMax
     }
+    func getTemperatureMaxFloat() -> Float
+    {
+        return Float(temperatureMax)!
+    }
     func getTemperatureMin() -> String
     {
         
         return temperatureMin
+    }
+    func getTemperatureMinFloat() -> Float
+    {
+        
+        return Float(temperatureMin)!
     }
 }

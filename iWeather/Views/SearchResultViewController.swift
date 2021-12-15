@@ -7,9 +7,11 @@
 
 import UIKit
 import CoreLocation
-
+import SwiftSpinner
+import Toast
 class SearchResultViewController: UIViewController,CurrentWeatherServiceDelegate, UITableViewDataSource, UITableViewDelegate, DailyWeatherServiceDelegate{
     
+    @IBOutlet weak var navigation: UINavigationItem!
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 7
     }
@@ -60,7 +62,8 @@ class SearchResultViewController: UIViewController,CurrentWeatherServiceDelegate
         super.viewDidLoad()
         //set city
         // set title
-        self.title = self.city
+        self.navigation.title = self.city
+    
         self.fsCity.text = self.city
         // set current favorite state
         self.isCityFavorite = true
@@ -100,9 +103,20 @@ class SearchResultViewController: UIViewController,CurrentWeatherServiceDelegate
     }
     
 
+    @IBAction func backButtonOnPressed(_ sender: Any) {
+        let transition: CATransition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        self.view.window!.layer.add(transition, forKey: nil)
+        self.dismiss(animated: false, completion: nil)
+    }
+    
+    
     /*
     // MARK: - Navigation
-
+     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
@@ -111,6 +125,7 @@ class SearchResultViewController: UIViewController,CurrentWeatherServiceDelegate
     */
     func LoadData()
     {
+        SwiftSpinner.show("Fetching Weather Details for " + self.city, animated: true)
         manuallyWeatherService.fetchWeather(latitude: geolocation.latitude, longtitude: geolocation.longitude)
         dailyWeatherService.fetchWeather(latitude: geolocation.latitude, longitude: geolocation.longitude)
     }
@@ -132,6 +147,7 @@ class SearchResultViewController: UIViewController,CurrentWeatherServiceDelegate
     
     func refreshPage()
     {
+        
         //first sub view
         self.fsWeatherIcon.image = UIImage(named: self.resultPageWeather.getImageName())
         self.fsTemperature.text = self.resultPageWeather.getTemperatureText()
@@ -143,24 +159,61 @@ class SearchResultViewController: UIViewController,CurrentWeatherServiceDelegate
         self.ssVisibility.text = self.resultPageWeather.getVisibilityText()
         self.ssPressure.text = self.resultPageWeather.getPressureText()
         //third table view
+        SwiftSpinner.hide()
     }
 
-    @IBAction func twitterButtonOnPressed(_ sender: UIButton)
-    {
-        print("Twitter button presssed @Result Page")
+    @IBAction func twitterButtonPressed(_ sender: Any) {
+        let twitterText = "The current temperature at \(self.city!) is \(self.resultPageWeather.getTemperatureText()). The weather conditions are \(self.resultPageWeather.getStatusText()!)#CSCI571WeatherSearch"
+        let EncodedTwitterText = twitterText.addingPercentEncoding(
+            withAllowedCharacters: .urlQueryAllowed
+        )
+        guard let url = URL(string: "https://twitter.com/intent/tweet?text=" + EncodedTwitterText!) else { print("can't produce URL"); return }
+        
+        UIApplication.shared.open(url)
     }
+   
     @IBAction func favoriteButtonOnPressed(_ sender: UIButton)
     {
         if (isCityFavorite)
         {
+            // UI
             favoriteButton.setImage(UIImage(named:"close-circle"), for: .normal)
             isCityFavorite = !isCityFavorite
-            showToast(message: self.city + " was added to the Favorite List")        }
+            showToast(message: self.city + " was added to the Favorite List")
+            //Store data to globallist
+            globalFavoirteList.append(FavoriteModel(cityName: self.city, currentWeatherModel: resultPageWeather, dailyWeatherModel: dailyWeather))
+            // Post Notification
+            var info = [String: String]()
+            info["operation"] = "add"
+            info["location"] = self.city
+            let name = Notification.Name(rawValue: K.favoriteNotificationKey )
+            NotificationCenter.default.post(name: name, object: nil,userInfo: info)
+            
+        }
+            
         else
         {
             favoriteButton.setImage(UIImage(named:"plus-circle"), for: .normal)
             isCityFavorite = !isCityFavorite
             showToast(message: self.city + " was removed from the Favorite List")
+            // remove data from global list
+            var viewControllerIndex = 0;
+            for (index,item) in globalFavoirteList.enumerated()
+            {
+                if item.cityName == self.city
+                {
+                    viewControllerIndex = index
+                }
+            }
+            globalFavoirteList.remove(at: viewControllerIndex)
+            
+            // Post Notification
+            
+            var info = [String: String]()
+            info["operation"] = "delete"
+            info["location"] = self.city
+            let name = Notification.Name(rawValue: K.favoriteNotificationKey )
+            NotificationCenter.default.post(name: name, object: nil,userInfo: info)
             
         }
         
@@ -168,8 +221,9 @@ class SearchResultViewController: UIViewController,CurrentWeatherServiceDelegate
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "ResultToDetail") {
             let vc = segue.destination as! DetailViewController
-            vc.title = self.city
+            vc.city = self.city
             vc.detailWeather = resultPageWeather
+            vc.dailyWeather = dailyWeather
         }
     }
     
@@ -178,22 +232,7 @@ extension UIViewController
 {
     func showToast(message:String)
     {
-        let toastLabel = UILabel(frame: CGRect(x:45, y:self.view.frame.height-100, width:300, height:60))
-        toastLabel.text = message
-        toastLabel.textAlignment = .center
-        toastLabel.backgroundColor = UIColor.black
-        toastLabel.textColor = UIColor.white
-        toastLabel.alpha = 1.0
-        toastLabel.numberOfLines = 0
-        toastLabel.layer.cornerRadius = 10
-        toastLabel.clipsToBounds = true
-        self.view.addSubview(toastLabel)
-        UIView.animate(withDuration: 4.0, delay:1.0, options: .curveEaseInOut, animations: {
-            toastLabel.alpha = 0.0
-        }){(isCompleted) in
-            toastLabel.removeFromSuperview()
-            
-        }
+        self.view.makeToast(message)
     }
     
 }

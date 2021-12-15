@@ -6,8 +6,11 @@
 //
 
 import Foundation
+
+
 struct CurrentWeatherData: Decodable
 {
+   
     let weatherCode: Int
     let temperature:Float
     let humidity:Float
@@ -15,11 +18,12 @@ struct CurrentWeatherData: Decodable
     let windSpeed:Float
     let visibility:Float
     let cloudCover:Float
-    let precipitationProbability: Int
+    let precipitationProbability: Float
     let uvIndex:Float
 }
 struct CurrentWeatherModel
 {
+    
     let temperature:String
     let status:String
     let humidity:String
@@ -30,6 +34,7 @@ struct CurrentWeatherModel
     let cloudCover:String
     let UVIndex:String
     
+   
     func getTemperatureText() -> String
     {
         return temperature + "°F"
@@ -69,6 +74,19 @@ struct CurrentWeatherModel
     func getCloudCoverText() -> String
     {
         return cloudCover + " %"
+    }
+    func getHumidityInt() -> NSNumber
+    {
+        return NumberFormatter().number(from: humidity)!
+        
+    }
+    func getPrecipitationInt() -> NSNumber
+    {
+        return NumberFormatter().number(from: precipitationProbability)!
+    }
+    func getCloudCoverInt() -> NSNumber
+    {
+        return NumberFormatter().number(from: cloudCover)!
     }
     
 }

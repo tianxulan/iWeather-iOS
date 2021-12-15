@@ -22,6 +22,7 @@ class DailyCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        dayCellView.backgroundColor = UIColor.clear
         // Initialization code
     }
 

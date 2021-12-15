@@ -1,0 +1,16 @@
+PODS:
+  - SwiftSpinner (2.2.0)
+
+DEPENDENCIES:
+  - SwiftSpinner
+
+SPEC REPOS:
+  trunk:
+    - SwiftSpinner
+
+SPEC CHECKSUMS:
+  SwiftSpinner: f9b59477fe107427f2b5b835497d6636fa167ede
+
+PODFILE CHECKSUM: e5afd8d1f4af3f711648619aaa10456a02ad105e
+
+COCOAPODS: 1.11.2

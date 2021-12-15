@@ -7,12 +7,21 @@
 
 import UIKit
 import CoreLocation
+import SwiftSpinner
+
+var globalFirstTimeLoadHomePage = true
+var homepageWeather = CurrentWeatherModel(temperature: "", status: "", humidity: "", windSpeed: "", visibility: "", pressure: "", precipitationProbability: "", cloudCover: "", UVIndex: "")
+var LoadFromFavoritePage:Bool = false
+var lastDeleteCity:String!
+var currentDailyWeather = DailyWeatherModel(dayCells:  [])
+var currentCity:String!
 class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, DailyWeatherServiceDelegate, AutocompleteServiceDelegate{
     
     // Search Bar
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet weak var placeTable: UITableView!
-
+    
+    
     var filteredData: [String]!
     var placeDescriptions: [String]!
     // First sub outlets
@@ -36,21 +45,44 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
     var autoCompleteService = AutocompleteService()
     
     // File-Scope variables
-    var currentCity = String()
+    
     var searchCity = String()
     var searchCityDescrption = String()
-    var homepageWeather = CurrentWeatherModel(temperature: "", status: "", humidity: "", windSpeed: "", visibility: "", pressure: "", precipitationProbability: "", cloudCover: "", UVIndex: "")
+    
     let locationManager = CLLocationManager()
-    var dailyWeather = DailyWeatherModel(dayCells:  [])
+    
     var autoComplete = AutocompleteModel(placeCells: [])
     var currentGeolocation = GeoLocationModel(latitude: "", longitude: "")
+    var firstTimeLoaded = true
+    let notification = Notification.Name(rawValue: K.favoriteNotificationKey)
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         //Search bar
+//        let controller= storyboard!.instantiateViewController(withIdentifier: "")
+        
+        
+        
         navigationItem.titleView = searchBar
-//        searchBar.prompt = "Enter City Name..."
+        searchBar.layer.borderWidth = 1
+        searchBar.layer.borderColor = UIColor.clear.cgColor
+        searchBar.layer.backgroundColor = UIColor.clear.cgColor
+        searchBar.searchBarStyle = .minimal // or default
+        searchBar.setTextField(color: UIColor.white)//        searchBar.prompt = "Enter City Name..."
+        //Set up first sub view
+        firstSubView.layer.borderColor = UIColor.white.cgColor
+        if (LoadFromFavoritePage)
+        {
+            showToast(message: lastDeleteCity + " was removed from the Favorite List")
+            refreshPage()
+            LoadFromFavoritePage = false
+        }
         
         placeTable.dataSource = self
         searchBar.delegate = self
@@ -62,14 +94,21 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
         
 //        searchBar.endEditing(true)
         
-        //Set up first sub view
-        firstSubView.layer.borderColor = UIColor.white.cgColor
+        
         
         
         //User Location
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
+        
+        if globalFirstTimeLoadHomePage{
+            globalFirstTimeLoadHomePage = false
+            locationManager.requestLocation()
+        }
+        
+            
+        
+        
         
         //Weather service
         currentWeatherService.delegate = self
@@ -89,9 +128,10 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
 //            dailyWeather.dayCells.append(DailyWeatherCellModel(date: "", weatherCode: "", sunriseTime: "", sunsetTime: "", temperatureMax: "", temperatureMin: ""))
 //        }
         
-        
-        
+                
     }
+    
+    
     func didUpdateAutocomplete(autocompletemodel: AutocompleteModel) {
         DispatchQueue.main.async {
             self.autoComplete = autocompletemodel
@@ -109,13 +149,14 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
 
     @IBAction func firstSubViewOnPressed(_ sender: UIButton)
     {
-        //change view and transfer data
-//        let dayVC = DayViewController()
-//        dayVC.dayWeather = homepageWeather
+        self.performSegue(withIdentifier: "HomepageToDetail", sender: self)
         
     }
     func loadHomepageData(currentLocation: GeoLocationModel)
     {
+        
+        
+        
         currentWeatherService.fetchWeather(latitude: currentLocation.latitude,longtitude: currentLocation.longitude)
         dailyWeatherService.fetchWeather(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
     }
@@ -124,13 +165,16 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
     {
         
         DispatchQueue.main.async {
-            self.homepageWeather = currentWeather
-            self.refreshPage()
+            homepageWeather = currentWeather
+            
+                self.refreshPage()
+            
+            
         }
     }
     func didUpdateDailyWeather(dailyweatherModel: DailyWeatherModel) {
         DispatchQueue.main.async {
-            self.dailyWeather = dailyweatherModel
+            currentDailyWeather = dailyweatherModel
             self.dailyTable.reloadData()
             
         }
@@ -138,23 +182,30 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
     
     func refreshPage()
     {
+        
         //first sub view
-        self.fsWeatherIcon.image = UIImage(named: self.homepageWeather.getImageName())
-        self.fsTemperature.text = self.homepageWeather.getTemperatureText()
+        self.fsWeatherIcon.image = UIImage(named: homepageWeather.getImageName())
+        self.fsTemperature.text = homepageWeather.getTemperatureText()
         //TODO: update current location
-        self.fsStatus.text = self.homepageWeather.getStatusText()
+        self.fsStatus.text = homepageWeather.getStatusText()
+        self.fsCity.text = currentCity
         //second sub view
-        self.ssHumidity.text = self.homepageWeather.getHumidityText()
-        self.ssWindSpeed.text = self.homepageWeather.getWindSpeedText()
-        self.ssVisibility.text = self.homepageWeather.getVisibilityText()
-        self.ssPressure.text = self.homepageWeather.getPressureText()
+        self.ssHumidity.text = homepageWeather.getHumidityText()
+        self.ssWindSpeed.text = homepageWeather.getWindSpeedText()
+        self.ssVisibility.text = homepageWeather.getVisibilityText()
+        self.ssPressure.text = homepageWeather.getPressureText()
+        
         //third table view
+        SwiftSpinner.hide()
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "HomepageToDetail") {
             let vc = segue.destination as! DetailViewController
-            vc.title = self.currentCity
+            vc.modalPresentationStyle = .fullScreen //or .overFullScreen for transparency
+            vc.city = currentCity
+            vc.addressDescription = self.searchCityDescrption
             vc.detailWeather = homepageWeather
+            vc.dailyWeather = currentDailyWeather
         }
         if (segue.identifier == "HomepageToResult")
         {
@@ -163,27 +214,36 @@ class HomePageViewController: UIViewController, CurrentWeatherServiceDelegate, D
             vc.addressDescription = self.searchCityDescrption
         }
     }
+    
 }
 
 // MARL: - CLLocationManagerDelegate
 extension HomePageViewController:CLLocationManagerDelegate
 {
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        SwiftSpinner.show("Loading", animated: true)
         if let location = locations.last
         {
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
             self.currentGeolocation.latitude = String(lat)
             self.currentGeolocation.longitude = String(lon)
-            self.loadHomepageData(currentLocation: self.currentGeolocation)
+            
+                self.loadHomepageData(currentLocation: self.currentGeolocation)
+            
+            
+            
+            
+            
             let geocoder = CLGeocoder()
             geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
                         if error == nil {
                             if let firstLocation = placemarks?[0],
                                 let cityName = firstLocation.locality {
                                 // get the city name
-                                self?.currentCity = cityName
-                                self?.fsCity.text = self?.currentCity
+                                currentCity = cityName
+                                self?.fsCity.text = currentCity
                                 
                             }
                         }
@@ -213,15 +273,15 @@ extension HomePageViewController: UITableViewDataSource, UITableViewDelegate
         if tableView == dailyTable
         {
             let cell = dailyTable.dequeueReusableCell(withIdentifier: "DayCell", for:indexPath) as! DailyCell
-            if dailyWeather.dayCells.isEmpty
+            if currentDailyWeather.dayCells.isEmpty
             {
                 
                 return cell
             }
-            cell.date.text = dailyWeather.dayCells[indexPath.row].getDateFormatted()
-            cell.sunriseTime.text = dailyWeather.dayCells[indexPath.row].getSunriseTimeFormatted()
-            cell.statusImage.image = UIImage(named: dailyWeather.dayCells[indexPath.row].getWeatherImagePath())
-            cell.sunsetTime.text = dailyWeather.dayCells[indexPath.row].getSunsetTimeFormatted()
+            cell.date.text = currentDailyWeather.dayCells[indexPath.row].getDateFormatted()
+            cell.sunriseTime.text = currentDailyWeather.dayCells[indexPath.row].getSunriseTimeFormatted()
+            cell.statusImage.image = UIImage(named: currentDailyWeather.dayCells[indexPath.row].getWeatherImagePath())
+            cell.sunsetTime.text = currentDailyWeather.dayCells[indexPath.row].getSunsetTimeFormatted()
             
             return cell
         }
@@ -235,16 +295,21 @@ extension HomePageViewController: UITableViewDataSource, UITableViewDelegate
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if tableView == placeTable
         {
-            
+            SwiftSpinner.show("Fetching Weather Details for " + filteredData[indexPath.row] )
             searchBar.endEditing(true)
             tableView.isHidden = true
             
             searchCity = filteredData[indexPath.row]
             searchCityDescrption = placeDescriptions[indexPath.row]
             // perform segue
+          
+                    // do stuff 42 seconds later
+            
             self.performSegue(withIdentifier: "HomepageToResult", sender: self)
+            
         }
         
     }
@@ -273,5 +338,19 @@ extension HomePageViewController:UISearchBarDelegate
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         placeTable.isHidden = true
+    }
+
+}
+extension UISearchBar {
+    func getTextField() -> UITextField? { return value(forKey: "searchField") as? UITextField }
+    func setTextField(color: UIColor) {
+        guard let textField = getTextField() else { return }
+        switch searchBarStyle {
+        case .minimal:
+            textField.layer.backgroundColor = color.cgColor
+            textField.layer.cornerRadius = 6
+        case .prominent, .default: textField.backgroundColor = color
+        @unknown default: break
+        }
     }
 }
